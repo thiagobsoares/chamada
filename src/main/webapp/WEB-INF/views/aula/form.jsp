@@ -31,14 +31,14 @@
 		<br />
 		<label for="diasDeAula">Data Nascimento</label>
 		<form:select path="diasDeAula">
-			<form:option value="-1" label="Escolha o dia" />
+			<form:option value="" label="Escolha o dia" />
 			<form:options items="${diasSemana}"/>
 		</form:select>
 		<form:errors path="diasDeAula" />
 		<br />
 		<label for="professor">Professor:</label>
 		<form:select path="professor">
-			<form:option value="-1" label="Escolha o Professor" />
+			<form:option value="" label="Escolha o Professor" />
 			<form:options items="${professores}" itemValue="ra"
 				itemLabel="nome" />
 		</form:select>

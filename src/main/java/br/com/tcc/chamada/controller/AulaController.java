@@ -4,6 +4,7 @@ import java.time.DayOfWeek;
 
 import javax.validation.Valid;
 
+import org.hibernate.stat.Statistics;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -36,6 +37,9 @@ public class AulaController {
 	@Autowired
 	private MateriaDAO materiaDAO;
 
+	@Autowired
+	private Statistics statistics;
+	
 	@RequestMapping(method = RequestMethod.GET, name = "montarFormularioAula")
 	public ModelAndView montarFormulario(Aula aula) {
 		ModelAndView mav = new ModelAndView("aula/form");
@@ -43,6 +47,7 @@ public class AulaController {
 		mav.addObject("alunos", alunoDAO.findAll());
 		mav.addObject("materias", materiaDAO.findAll());
 		mav.addObject("diasSemana", DayOfWeek.values());
+		
 		return mav;
 	}
 
