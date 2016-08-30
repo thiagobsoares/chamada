@@ -1,10 +1,13 @@
 package br.com.tcc.chamada.modelo;
 
 import java.time.LocalDateTime;
+import java.util.Map;
 
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
@@ -16,12 +19,14 @@ public class Presenca {
 	@GeneratedValue
 	private Long id;
 
-	private Aluno aluno;
-
-	private Boolean presente;
+	@ManyToOne
+	private Aula aula;
 
 	@DateTimeFormat(iso = ISO.DATE_TIME)
-	private LocalDateTime dataPresente;
+	private LocalDateTime data;
+
+	@ElementCollection
+	private Map<Aluno, Boolean> alunoPresente;
 
 	public Long getId() {
 		return id;
@@ -31,25 +36,29 @@ public class Presenca {
 		this.id = id;
 	}
 
-	public Aluno getAluno() {
-		return aluno;
+	public Aula getAula() {
+		return aula;
 	}
 
-	public void setAluno(Aluno aluno) {
-		this.aluno = aluno;
+	public void setAula(Aula aula) {
+		this.aula = aula;
 	}
 
-	public Boolean getPresente() {
-		return presente;
+	public LocalDateTime getData() {
+		return data;
 	}
 
-	public void presente() {
-		this.presente = Boolean.TRUE;
-		dataPresente = LocalDateTime.now();
+	public void setData(LocalDateTime data) {
+		this.data = data;
 	}
 
-	public LocalDateTime getDataPresente() {
-		return dataPresente;
+	public Map<Aluno, Boolean> getAlunoPresente() {
+		return alunoPresente;
 	}
+
+	public void setAlunoPresente(Map<Aluno, Boolean> alunoPresente) {
+		this.alunoPresente = alunoPresente;
+	}
+
 
 }

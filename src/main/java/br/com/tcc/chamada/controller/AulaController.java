@@ -1,10 +1,9 @@
 package br.com.tcc.chamada.controller;
 
-import java.time.DayOfWeek;
+import java.util.List;
 
 import javax.validation.Valid;
 
-import org.hibernate.stat.Statistics;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -19,6 +18,8 @@ import br.com.tcc.chamada.dao.AulaDAO;
 import br.com.tcc.chamada.dao.MateriaDAO;
 import br.com.tcc.chamada.dao.ProfessorDAO;
 import br.com.tcc.chamada.modelo.Aula;
+import br.com.tcc.chamada.modelo.DiaSemana;
+import br.com.tcc.chamada.modelo.HorarioAula;
 
 @RequestMapping("/aula")
 @Controller
@@ -37,17 +38,15 @@ public class AulaController {
 	@Autowired
 	private MateriaDAO materiaDAO;
 
-	@Autowired
-	private Statistics statistics;
-	
 	@RequestMapping(method = RequestMethod.GET, name = "montarFormularioAula")
 	public ModelAndView montarFormulario(Aula aula) {
 		ModelAndView mav = new ModelAndView("aula/form");
 		mav.addObject("professores", professorDAO.findAll());
 		mav.addObject("alunos", alunoDAO.findAll());
 		mav.addObject("materias", materiaDAO.findAll());
-		mav.addObject("diasSemana", DayOfWeek.values());
-		
+		mav.addObject("diasSemana", DiaSemana.values());
+		mav.addObject("horarioAula", HorarioAula.values());
+
 		return mav;
 	}
 
@@ -60,6 +59,16 @@ public class AulaController {
 		}
 
 		aulaDAO.save(aula);
+		return mav;
+	}
+
+	@RequestMapping(value = "/listar", method = RequestMethod.GET, name = "listarAulas")
+	public ModelAndView listarAulas() {
+		ModelAndView mav = new ModelAndView("aula/listar");
+
+		List<Aula> aulas = aulaDAO.findAll();
+
+		mav.addObject("aulas", aulas);
 		return mav;
 	}
 }

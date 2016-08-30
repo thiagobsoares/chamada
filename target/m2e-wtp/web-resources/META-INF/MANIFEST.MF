@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Implementation-Title: Chamada
 Implementation-Version: 0.0.1-SNAPSHOT
-Built-By: Thiago
+Built-By: thiago
 Implementation-Vendor-Id: br.com.tcc
 Build-Jdk: 1.8.0_91
 Implementation-URL: http://projects.spring.io/spring-boot/chamada/

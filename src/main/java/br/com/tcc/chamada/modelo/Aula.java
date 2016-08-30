@@ -1,8 +1,6 @@
 package br.com.tcc.chamada.modelo;
 
-import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -30,10 +28,10 @@ public class Aula {
 	private LocalDate dataFim;
 
 	@Enumerated(EnumType.STRING)
-	private DayOfWeek diasDeAula;
+	private DiaSemana diasDeAula;
 
-	@DateTimeFormat(iso = ISO.TIME)
-	private LocalTime horarioDeAula;
+	@Enumerated(EnumType.STRING)
+	private HorarioAula horarioDeAula;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Materia materia;
@@ -68,19 +66,19 @@ public class Aula {
 		this.dataFim = dataFim;
 	}
 
-	public DayOfWeek getDiasDeAula() {
+	public DiaSemana getDiasDeAula() {
 		return diasDeAula;
 	}
 
-	public void setDiasDeAula(DayOfWeek diasDeAula) {
+	public void setDiasDeAula(DiaSemana diasDeAula) {
 		this.diasDeAula = diasDeAula;
 	}
 
-	public LocalTime getHorarioDeAula() {
+	public HorarioAula getHorarioDeAula() {
 		return horarioDeAula;
 	}
 
-	public void setHorarioDeAula(LocalTime horarioDeAula) {
+	public void setHorarioDeAula(HorarioAula horarioDeAula) {
 		this.horarioDeAula = horarioDeAula;
 	}
 
