@@ -36,12 +36,13 @@
 		</form:select>
 		<form:errors path="diasDeAula" />
 		<br />
-		<label for="horarioDeAula">Horario da Aula</label>
-		<form:select path="horarioDeAula">
-			<form:option value="" label="Escolho o horario" />
-			<form:options items="${horarioAula}" itemLabel="hora"/>
-		</form:select>
-		<form:errors path="horarioDeAula" />
+		<label for="horarioInicio">Horario Inicio</label>
+		<form:input path="horarioInicio" type="time"/>
+		<form:errors path="horarioInicio" />
+		<br />
+		<label for="horarioFim">Horario Fim</label>
+		<form:input path="horarioFim" type="time"/>
+		<form:errors path="horarioFim" />
 		<br />
 		<label for="professor">Professor:</label>
 		<form:select path="professor">

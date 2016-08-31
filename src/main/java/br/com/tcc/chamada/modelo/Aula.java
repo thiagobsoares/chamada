@@ -1,6 +1,7 @@
 package br.com.tcc.chamada.modelo;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -11,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
@@ -30,9 +32,12 @@ public class Aula {
 	@Enumerated(EnumType.STRING)
 	private DiaSemana diasDeAula;
 
-	@Enumerated(EnumType.STRING)
-	private HorarioAula horarioDeAula;
-
+	@DateTimeFormat(iso = ISO.TIME)
+	private LocalTime horarioInicio;
+	
+	@DateTimeFormat(iso = ISO.TIME)
+	private LocalTime horarioFim;
+	
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Materia materia;
 
@@ -74,12 +79,20 @@ public class Aula {
 		this.diasDeAula = diasDeAula;
 	}
 
-	public HorarioAula getHorarioDeAula() {
-		return horarioDeAula;
+	public LocalTime getHorarioInicio() {
+		return horarioInicio;
 	}
 
-	public void setHorarioDeAula(HorarioAula horarioDeAula) {
-		this.horarioDeAula = horarioDeAula;
+	public void setHorarioInicio(LocalTime horarioInicio) {
+		this.horarioInicio = horarioInicio;
+	}
+
+	public LocalTime getHorarioFim() {
+		return horarioFim;
+	}
+
+	public void setHorarioFim(LocalTime horarioFim) {
+		this.horarioFim = horarioFim;
 	}
 
 	public Materia getMateria() {

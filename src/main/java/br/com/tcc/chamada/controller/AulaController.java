@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.context.WebApplicationContext;
@@ -19,7 +21,7 @@ import br.com.tcc.chamada.dao.MateriaDAO;
 import br.com.tcc.chamada.dao.ProfessorDAO;
 import br.com.tcc.chamada.modelo.Aula;
 import br.com.tcc.chamada.modelo.DiaSemana;
-import br.com.tcc.chamada.modelo.HorarioAula;
+import br.com.tcc.chamada.validator.AulaValidator;
 
 @RequestMapping("/aula")
 @Controller
@@ -38,6 +40,11 @@ public class AulaController {
 	@Autowired
 	private MateriaDAO materiaDAO;
 
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+		binder.setValidator(new AulaValidator());
+	}
+
 	@RequestMapping(method = RequestMethod.GET, name = "montarFormularioAula")
 	public ModelAndView montarFormulario(Aula aula) {
 		ModelAndView mav = new ModelAndView("aula/form");
@@ -45,7 +52,6 @@ public class AulaController {
 		mav.addObject("alunos", alunoDAO.findAll());
 		mav.addObject("materias", materiaDAO.findAll());
 		mav.addObject("diasSemana", DiaSemana.values());
-		mav.addObject("horarioAula", HorarioAula.values());
 
 		return mav;
 	}
