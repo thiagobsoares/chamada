@@ -61,6 +61,7 @@ public class AulaController {
 		ModelAndView mav = new ModelAndView("aula/form");
 
 		if (result.hasErrors()) {
+			System.out.println("Entrou");
 			return montarFormulario(aula);
 		}
 

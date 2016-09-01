@@ -1,5 +1,7 @@
 package br.com.tcc.chamada.modelo;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -77,7 +79,7 @@ public class Professor implements UserDetails {
 		}
 		roles.add(new Role(permissao));
 	}
-	
+
 	@Override
 	public String toString() {
 		return this.nome;
@@ -131,11 +133,43 @@ public class Professor implements UserDetails {
 		this.roles = roles;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public Boolean disponivelNaData(LocalDate dataInicio, LocalDate dataFim, DiaSemana diaDaSemana,
+			LocalTime horarioInicio, LocalTime horarioFim) {
+
+		for (Aula aula : aulas) {
+			DiaSemana diasDeAula = aula.getDiasDeAula();
+			LocalTime horarioInicioAulaRegistrada = aula.getHorarioInicio();
+			LocalTime horarioFimAulaRegistrada = aula.getHorarioFim();
+			LocalDate dataInicioAulaRegistrada = aula.getDataInicio();
+			LocalDate dataFimAulaRegistrada = aula.getDataFim();
+
+			if (!diasDeAula.equals(diaDaSemana)) {
+				continue;
+			}
+
+			if (horarioInicio.isAfter(horarioFimAulaRegistrada)) {
+				continue;
+			}
+
+			if (horarioFim.isBefore(horarioInicioAulaRegistrada)) {
+				continue;
+			}
+
+			if (dataInicio.isAfter(dataFimAulaRegistrada)) {
+				continue;
+			}
+
+			if (dataFim.isBefore(dataInicioAulaRegistrada)) {
+				continue;
+			}
+
+			return Boolean.FALSE;
+		}
+
+		return Boolean.TRUE;
 	}
 }

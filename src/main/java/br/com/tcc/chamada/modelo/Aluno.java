@@ -1,6 +1,7 @@
 package br.com.tcc.chamada.modelo;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -37,12 +38,12 @@ public class Aluno implements UserDetails {
 	private String password;
 
 	private String foto;
-	
+
 	private String telefone;
 
-	@ManyToMany(fetch = FetchType.EAGER, mappedBy="alunos")
+	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "alunos")
 	private List<Aula> aulas;
-	
+
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Endereco endereco;
 
@@ -165,5 +166,41 @@ public class Aluno implements UserDetails {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public Boolean disponivelNaData(LocalDate dataInicio, LocalDate dataFim, DiaSemana diaDaSemana,
+			LocalTime horarioInicio, LocalTime horarioFim) {
+
+		for (Aula aula : aulas) {
+			DiaSemana diasDeAula = aula.getDiasDeAula();
+			LocalTime horarioInicioAulaRegistrada = aula.getHorarioInicio();
+			LocalTime horarioFimAulaRegistrada = aula.getHorarioFim();
+			LocalDate dataInicioAulaRegistrada = aula.getDataInicio();
+			LocalDate dataFimAulaRegistrada = aula.getDataFim();
+
+			if (!diasDeAula.equals(diaDaSemana)) {
+				continue;
+			}
+
+			if (horarioInicio.isAfter(horarioFimAulaRegistrada)) {
+				continue;
+			}
+
+			if (horarioFim.isBefore(horarioInicioAulaRegistrada)) {
+				continue;
+			}
+
+			if (dataInicio.isAfter(dataFimAulaRegistrada)) {
+				continue;
+			}
+
+			if (dataFim.isBefore(dataInicioAulaRegistrada)) {
+				continue;
+			}
+
+			return Boolean.FALSE;
+		}
+
+		return Boolean.TRUE;
 	}
 }
