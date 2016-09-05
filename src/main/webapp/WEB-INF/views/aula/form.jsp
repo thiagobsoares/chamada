@@ -57,7 +57,7 @@
 			<form:options items="${professores}" itemValue="ra" itemLabel="nome" />
 		</form:select>
 		<form:errors path="professor" />
-		<br />
+		<br />Professor
 		<label for="alunos">Alunos:</label>
 		<form:select path="alunos" multiple="true">
 			<form:options items="${alunos}" itemValue="ra" itemLabel="nome" />

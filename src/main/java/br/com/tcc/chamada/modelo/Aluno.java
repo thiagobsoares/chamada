@@ -1,10 +1,8 @@
 package br.com.tcc.chamada.modelo;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -12,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -41,14 +40,17 @@ public class Aluno implements UserDetails {
 
 	private String telefone;
 
-	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "alunos")
-	private List<Aula> aulas;
+	@ManyToOne
+	private Turma turma;
 
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Endereco endereco;
 
 	@ManyToMany(fetch = FetchType.EAGER)
 	private Collection<Role> roles;
+
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private ResponsavelAluno responsavelAluno;
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -140,12 +142,12 @@ public class Aluno implements UserDetails {
 		this.telefone = telefone;
 	}
 
-	public List<Aula> getAulas() {
-		return aulas;
+	public Turma getTurma() {
+		return turma;
 	}
 
-	public void setAulas(List<Aula> aulas) {
-		this.aulas = aulas;
+	public void setTurma(Turma turma) {
+		this.turma = turma;
 	}
 
 	public Endereco getEndereco() {
@@ -164,43 +166,41 @@ public class Aluno implements UserDetails {
 		this.roles = roles;
 	}
 
+	public ResponsavelAluno getResponsavelAluno() {
+		return responsavelAluno;
+	}
+
+	public void setResponsavelAluno(ResponsavelAluno responsavelAluno) {
+		this.responsavelAluno = responsavelAluno;
+	}
+
 	public void setPassword(String password) {
 		this.password = password;
 	}
 
-	public Boolean disponivelNaData(LocalDate dataInicio, LocalDate dataFim, DiaSemana diaDaSemana,
-			LocalTime horarioInicio, LocalTime horarioFim) {
-
-		for (Aula aula : aulas) {
-			DiaSemana diasDeAula = aula.getDiasDeAula();
-			LocalTime horarioInicioAulaRegistrada = aula.getHorarioInicio();
-			LocalTime horarioFimAulaRegistrada = aula.getHorarioFim();
-			LocalDate dataInicioAulaRegistrada = aula.getDataInicio();
-			LocalDate dataFimAulaRegistrada = aula.getDataFim();
-
-			if (!diasDeAula.equals(diaDaSemana)) {
-				continue;
-			}
-
-			if (horarioInicio.isAfter(horarioFimAulaRegistrada)) {
-				continue;
-			}
-
-			if (horarioFim.isBefore(horarioInicioAulaRegistrada)) {
-				continue;
-			}
-
-			if (dataInicio.isAfter(dataFimAulaRegistrada)) {
-				continue;
-			}
-
-			if (dataFim.isBefore(dataInicioAulaRegistrada)) {
-				continue;
-			}
-
-			return Boolean.FALSE;
-		}
-
-		return Boolean.TRUE;
-	}
+	/*
+	 * @Deprecated public Boolean disponivelNaData(LocalDate dataInicio,
+	 * LocalDate dataFim, DiaSemana diaDaSemana, LocalTime horarioInicio,
+	 * LocalTime horarioFim) {
+	 * 
+	 * for (Aula aula : aulas) { DiaSemana diasDeAula = aula.getDiasDeAula();
+	 * LocalTime horarioInicioAulaRegistrada = aula.getHorarioInicio();
+	 * LocalTime horarioFimAulaRegistrada = aula.getHorarioFim(); LocalDate
+	 * dataInicioAulaRegistrada = aula.getDataInicio(); LocalDate
+	 * dataFimAulaRegistrada = aula.getDataFim();
+	 * 
+	 * if (!diasDeAula.equals(diaDaSemana)) { continue; }
+	 * 
+	 * if (horarioInicio.isAfter(horarioFimAulaRegistrada)) { continue; }
+	 * 
+	 * if (horarioFim.isBefore(horarioInicioAulaRegistrada)) { continue; }
+	 * 
+	 * if (dataInicio.isAfter(dataFimAulaRegistrada)) { continue; }
+	 * 
+	 * if (dataFim.isBefore(dataInicioAulaRegistrada)) { continue; }
+	 * 
+	 * return Boolean.FALSE; }
+	 * 
+	 * return Boolean.TRUE; }
+	 */
 }

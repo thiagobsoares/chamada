@@ -11,11 +11,11 @@ import br.com.tcc.chamada.modelo.Aluno;
 import br.com.tcc.chamada.modelo.Aula;
 import br.com.tcc.chamada.modelo.Professor;
 
-public class AulaValidator implements Validator {
+public class AlunoValidator implements Validator {
 
 	@Override
 	public boolean supports(Class<?> clazz) {
-		return clazz.isAssignableFrom(Aula.class);
+		return clazz.isAssignableFrom(Aluno.class);
 	}
 
 	@Override

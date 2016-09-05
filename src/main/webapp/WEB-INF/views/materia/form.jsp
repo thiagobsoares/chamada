@@ -6,10 +6,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Cadastrar Professor</title>
+<title>Cadastrar de Matéria</title>
 </head>
 <body>
-	<h1>Cadastro de Professor</h1>
+	<h1>Cadastro de Matéria</h1>
 
 	<form:form action="${spring:mvcUrl('cadastrarMateria').build()}"
 		method="POST" commandName="materia">

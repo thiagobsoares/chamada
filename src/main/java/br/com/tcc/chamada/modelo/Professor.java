@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
+import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -24,10 +25,11 @@ public class Professor implements UserDetails {
 	@GeneratedValue
 	private Long ra;
 
+	@NotBlank
 	private String nome;
-
+	@NotBlank
 	private String email;
-
+	@NotBlank
 	private String password;
 
 	private String foto;

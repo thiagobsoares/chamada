@@ -24,7 +24,6 @@
         <th>Data Inicio</th>
         <th>Data Fim</th>
         <th>Dia da Semana</th>
-        <th>Horario</th>
         <th>Professor</th>
         <th>Aluno</th>
       </tr>
@@ -37,7 +36,6 @@
 	        <td>${aula.dataInicio }</td>
 	        <td>${aula.dataFim }</td>
 	        <td>${aula.diasDeAula.nome }</td>
-	        <td>${aula.horarioDeAula.hora }</td>
 	        <td>${aula.professor.nome }</td>
 	      </tr>
     	</c:forEach>

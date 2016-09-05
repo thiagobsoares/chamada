@@ -2,7 +2,6 @@ package br.com.tcc.chamada.modelo;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -10,7 +9,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
@@ -23,29 +21,37 @@ public class Aula {
 	@GeneratedValue
 	private Integer id;
 
+	@NotNull
 	@DateTimeFormat(iso = ISO.DATE)
 	private LocalDate dataInicio;
 
+	@NotNull
 	@DateTimeFormat(iso = ISO.DATE)
 	private LocalDate dataFim;
 
+	@NotNull
 	@Enumerated(EnumType.STRING)
 	private DiaSemana diasDeAula;
 
+	@NotNull
 	@DateTimeFormat(iso = ISO.TIME)
 	private LocalTime horarioInicio;
-	
+
+	@NotNull
 	@DateTimeFormat(iso = ISO.TIME)
 	private LocalTime horarioFim;
-	
+
+	@NotNull
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Materia materia;
 
+	@NotNull
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Professor professor;
 
-	@ManyToMany(fetch = FetchType.EAGER)
-	private List<Aluno> alunos;
+	@NotNull
+	@ManyToOne(fetch = FetchType.EAGER)
+	private Turma turma;
 
 	public Integer getId() {
 		return id;
@@ -111,12 +117,12 @@ public class Aula {
 		this.professor = professor;
 	}
 
-	public List<Aluno> getAlunos() {
-		return alunos;
+	public Turma getTurma() {
+		return turma;
 	}
 
-	public void setAlunos(List<Aluno> alunos) {
-		this.alunos = alunos;
+	public void setTurma(Turma turma) {
+		this.turma = turma;
 	}
 
 }
