@@ -13,11 +13,11 @@
 
 	<form:form action="${spring:mvcUrl('cadastrarAluno').build()}"
 		method="POST" commandName="aluno">
-		<label for="foto">Foto:</label>
+		<label for="foto"><spring:message code='views.aluno.form.foto' text='Foto'/></label>
 		<form:input path="foto" type="file"/>
 		<form:errors path="foto" />
 		<br />
-		<label for="nome"><spring:message code='views.aluno.form.name' text='Nome Padrão'/></label>
+		<label for="nome"><spring:message code='views.aluno.form.name' text='Nome'/></label>
 		<form:input path="nome" />
 		<form:errors path="nome" />
 		<br />
@@ -60,6 +60,10 @@
 		<label for="endereco.cep">CEP</label>
 		<form:input path="endereco.cep" />
 		<form:errors path="endereco.cep" />
+		<br />
+		<label for="responsavelAluno.cpf">CEP</label>
+		<form:input path="responsavelAluno.cpf" />
+		<form:errors path="responsavelAluno.cpf" />
 		<br />
 		<form:button>Gravar</form:button>
 	</form:form>

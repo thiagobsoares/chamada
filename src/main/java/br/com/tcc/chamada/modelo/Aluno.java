@@ -32,13 +32,19 @@ public class Aluno implements UserDetails {
 	@DateTimeFormat(iso = ISO.DATE)
 	private LocalDate dataNascimento;
 
+	private String rg;
+	
+	private String cpf;
+	
 	private String email;
 
 	private String password;
 
-	private String foto;
-
 	private String telefone;
+
+	private String digital;
+
+	private String foto;
 
 	@ManyToOne
 	private Turma turma;
@@ -118,6 +124,22 @@ public class Aluno implements UserDetails {
 		this.dataNascimento = dataNascimento;
 	}
 
+	public String getRg() {
+		return rg;
+	}
+
+	public void setRg(String rg) {
+		this.rg = rg;
+	}
+
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+
 	public String getEmail() {
 		return email;
 	}
@@ -126,20 +148,28 @@ public class Aluno implements UserDetails {
 		this.email = email;
 	}
 
-	public String getFoto() {
-		return foto;
-	}
-
-	public void setFoto(String foto) {
-		this.foto = foto;
-	}
-
 	public String getTelefone() {
 		return telefone;
 	}
 
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
+	}
+
+	public String getDigital() {
+		return digital;
+	}
+
+	public void setDigital(String digital) {
+		this.digital = digital;
+	}
+
+	public String getFoto() {
+		return foto;
+	}
+
+	public void setFoto(String foto) {
+		this.foto = foto;
 	}
 
 	public Turma getTurma() {

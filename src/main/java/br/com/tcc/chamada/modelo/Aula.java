@@ -1,6 +1,5 @@
 package br.com.tcc.chamada.modelo;
 
-import java.time.LocalDate;
 import java.time.LocalTime;
 
 import javax.persistence.Entity;
@@ -21,17 +20,11 @@ public class Aula {
 	@GeneratedValue
 	private Integer id;
 
-	@NotNull
-	@DateTimeFormat(iso = ISO.DATE)
-	private LocalDate dataInicio;
-
-	@NotNull
-	@DateTimeFormat(iso = ISO.DATE)
-	private LocalDate dataFim;
-
+	private Integer ano;
+	
 	@NotNull
 	@Enumerated(EnumType.STRING)
-	private DiaSemana diasDeAula;
+	private DiaSemana diaSemanaDeAula;
 
 	@NotNull
 	@DateTimeFormat(iso = ISO.TIME)
@@ -61,28 +54,20 @@ public class Aula {
 		this.id = id;
 	}
 
-	public LocalDate getDataInicio() {
-		return dataInicio;
+	public Integer getAno() {
+		return ano;
 	}
 
-	public void setDataInicio(LocalDate dataInicio) {
-		this.dataInicio = dataInicio;
+	public void setAno(Integer ano) {
+		this.ano = ano;
 	}
 
-	public LocalDate getDataFim() {
-		return dataFim;
+	public DiaSemana getDiaSemanaDeAula() {
+		return diaSemanaDeAula;
 	}
 
-	public void setDataFim(LocalDate dataFim) {
-		this.dataFim = dataFim;
-	}
-
-	public DiaSemana getDiasDeAula() {
-		return diasDeAula;
-	}
-
-	public void setDiasDeAula(DiaSemana diasDeAula) {
-		this.diasDeAula = diasDeAula;
+	public void setDiaSemanaDeAula(DiaSemana diaSemanaDeAula) {
+		this.diaSemanaDeAula = diaSemanaDeAula;
 	}
 
 	public LocalTime getHorarioInicio() {
@@ -124,5 +109,6 @@ public class Aula {
 	public void setTurma(Turma turma) {
 		this.turma = turma;
 	}
+
 
 }

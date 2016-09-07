@@ -4,12 +4,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+import org.hibernate.validator.constraints.Length;
+
 @Entity
 public class Materia {
 	@Id
 	@GeneratedValue
 	private Long id;
 
+	@Length(min=3,max=50)
 	private String nome;
 
 	private String sigla;

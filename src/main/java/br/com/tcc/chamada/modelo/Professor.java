@@ -14,6 +14,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -27,10 +29,17 @@ public class Professor implements UserDetails {
 
 	@NotBlank
 	private String nome;
+	
+	@DateTimeFormat(iso = ISO.DATE)
+	private LocalDate dataNascimento;
+	
 	@NotBlank
 	private String email;
+	
 	@NotBlank
 	private String password;
+	
+	private String digital;
 
 	private String foto;
 
@@ -86,6 +95,36 @@ public class Professor implements UserDetails {
 	public String toString() {
 		return this.nome;
 	}
+	public Boolean disponivelNaData(LocalDate ano, DiaSemana diaDaSemana,
+			LocalTime horarioInicio, LocalTime horarioFim) {
+
+		for (Aula aula : aulas) {
+			DiaSemana diasDeAula = aula.getDiaSemanaDeAula();
+			Integer anoAula = aula.getAno();
+			LocalTime horarioInicioAulaRegistrada = aula.getHorarioInicio();
+			LocalTime horarioFimAulaRegistrada = aula.getHorarioFim();
+
+			if (!diasDeAula.equals(diaDaSemana)) {
+				continue;
+			}
+			
+			if (!ano.equals(anoAula)) {
+				continue;
+			}
+
+			if (horarioInicio.isAfter(horarioFimAulaRegistrada)) {
+				continue;
+			}
+
+			if (horarioFim.isBefore(horarioInicioAulaRegistrada)) {
+				continue;
+			}
+
+			return Boolean.FALSE;
+		}
+
+		return Boolean.TRUE;
+	}
 
 	public Long getRa() {
 		return ra;
@@ -103,12 +142,28 @@ public class Professor implements UserDetails {
 		this.nome = nome;
 	}
 
+	public LocalDate getDataNascimento() {
+		return dataNascimento;
+	}
+
+	public void setDataNascimento(LocalDate dataNascimento) {
+		this.dataNascimento = dataNascimento;
+	}
+
 	public String getEmail() {
 		return email;
 	}
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getDigital() {
+		return digital;
+	}
+
+	public void setDigital(String digital) {
+		this.digital = digital;
 	}
 
 	public String getFoto() {
@@ -137,41 +192,5 @@ public class Professor implements UserDetails {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	public Boolean disponivelNaData(LocalDate dataInicio, LocalDate dataFim, DiaSemana diaDaSemana,
-			LocalTime horarioInicio, LocalTime horarioFim) {
-
-		for (Aula aula : aulas) {
-			DiaSemana diasDeAula = aula.getDiasDeAula();
-			LocalTime horarioInicioAulaRegistrada = aula.getHorarioInicio();
-			LocalTime horarioFimAulaRegistrada = aula.getHorarioFim();
-			LocalDate dataInicioAulaRegistrada = aula.getDataInicio();
-			LocalDate dataFimAulaRegistrada = aula.getDataFim();
-
-			if (!diasDeAula.equals(diaDaSemana)) {
-				continue;
-			}
-
-			if (horarioInicio.isAfter(horarioFimAulaRegistrada)) {
-				continue;
-			}
-
-			if (horarioFim.isBefore(horarioInicioAulaRegistrada)) {
-				continue;
-			}
-
-			if (dataInicio.isAfter(dataFimAulaRegistrada)) {
-				continue;
-			}
-
-			if (dataFim.isBefore(dataInicioAulaRegistrada)) {
-				continue;
-			}
-
-			return Boolean.FALSE;
-		}
-
-		return Boolean.TRUE;
 	}
 }
